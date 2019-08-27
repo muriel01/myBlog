@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<div class="login column">
+    <h2 class="title">login</h2>
+    <div class="form column">
+        <p><span>userName：</span><input id="user" type="text" placeholder="请输入用户名"></p>
+        <p><span>passWord：</span><input id="password" type="text" placeholder="请输入密码"></p>
+        <button id="register">登录</button>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $(function () {
+        // 测试 get 接口
+
+        $("#register").click(function () {
+            // 测试 post 接口
+            $.ajax({
+                url: "http://localhost:8888/login",
+                type: "POST",
+                data: {
+                    username: $("#user").val(),
+                    password: $("#password").val()
+                },
+                success: function (res) {
+                    console.log(res);
+                    if(res.code == 0){
+                        sessionStorage.setItem('userId',res.data.id);
+                        sessionStorage.setItem('userName',res.data.userName);
+                        // window.location.href = './addArticle.html'
+                    }else {
+                        alert(res.message);
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+        })
+    });
+</script>

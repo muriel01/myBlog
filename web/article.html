@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <div>文章名</div>
+    <div>
+        <p>作者</p>
+        <p>2019/07/08</p>
+    </div>
+    <div>
+        文章内容
+    </div>
+
+    <script>
+        $.ajax({
+            url: "http://localhost:8888/articleInfo",
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                articleId:1
+            },
+            success: function (res) {
+                console.log(res);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    </script>
+</body>
+</html>

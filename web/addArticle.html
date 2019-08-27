@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发布文章</title>
+    <script src="js/wangEditor.min.js"></script>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <div>
+        <h2>标题</h2>
+        <input type="text" placeholder="请输入文章标题" class="articleName">
+    </div>
+    <div>
+        <div id="editor">
+            <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+        </div>
+
+
+        <button class="sub">确认</button>
+    </div>
+
+    <script type="text/javascript">
+        var E = window.wangEditor;
+        var editor = new E('#editor');
+        // 或者 var editor = new E( document.getElementById('editor') )
+        editor.create();
+
+
+        $('.sub').on('click',function () {
+            alert(editor.txt.html());
+            $.ajax({
+                url: "http://localhost:8888/addArticle",
+                type: "POST",
+                data: {
+                    articleName: $(".articleName").val(),
+                    content: editor.txt.html(),
+                    userId: sessionStorage.getItem('userId'),
+                    userName: sessionStorage.getItem('userName')
+                },
+                success: function (res) {
+                    console.log(res);
+                    if(res.code == 0){
+                        window.location.href = './index.html'
+                    }else {
+                        alert(res.message);
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+        })
+
+    </script>
+</body>
+</html>

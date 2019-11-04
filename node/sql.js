@@ -22,8 +22,35 @@ addSqlFun=(addSql,addSqlParams)=>{
     });
 };
 
+// 删除链接
+delSqlFun=(delSql)=>{
+    return new Promise((resolve,reject)=>{
+        connection.query(delSql,(err,resule)=>{
+            if(err){
+                reject(err);
+            }else{
+                resolve();
+            }
+        })
+    })
+};
+
+// 修改数据库语句
+updateSqlFun=(updateSql,updateVal)=>{
+    return new Promise((resolve,reject)=>{
+        // 连接 SQL 并实施语句
+        connection.query(updateSql, updateVal, function (error1, response1) {
+            if (error1) { // 如果 SQL 语句错误
+                reject(error1);
+            } else {
+                resolve();
+            }
+        })
+    });
+};
+
 //查询数据库
-searchSqlFun = (readSql, password) => {
+searchSqlFun = (readSql) => {
     console.log('sql语句', readSql);
     // 连接 SQL 并实施语句
     return new Promise((resolve, reject) => {
@@ -36,7 +63,6 @@ searchSqlFun = (readSql, password) => {
                     return
                 } else { // 存在用户
                     let newRes = JSON.parse(JSON.stringify(response1));
-                    console.log(newRes);
                     resolve(newRes);
                 }
             }
@@ -46,5 +72,7 @@ searchSqlFun = (readSql, password) => {
 
 module.exports = {
     'addSqlFun':addSqlFun,
-    'searchSqlFun':searchSqlFun
+    'searchSqlFun':searchSqlFun,
+    'updateSqlFun':updateSqlFun,
+    'delSqlFun':delSqlFun
 };

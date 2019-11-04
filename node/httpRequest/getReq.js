@@ -2,9 +2,15 @@ let getMethod = require('../methods/getMethod');
 const fs = require('fs');
 let path = require('path');
 
+
+let data = {
+    code: "0",
+    message: "操作成功！"
+};
+
 getReq=(pathName,params)=>{
     return new Promise((resolve,reject)=>{
-        if(pathName == '/'){
+        if(pathName == '/index'){
             console.log('\n首页：');
             pathName = 'index.html';
             let extName = path.extname(pathName);
@@ -26,33 +32,29 @@ getReq=(pathName,params)=>{
         }else if(pathName == '/getMessage'){
             console.log('\n获取留言信息');
             getMethod.getMessageFun().then(res2=>{
-                let data = {
-                    code: "0",
-                    message: "操作成功！",
-                    data:res2
-                };
+                data.data = res2;
                 resolve(data);
             }).catch(err=>{
                 reject(err);
             })
         }else if(pathName == '/articleInfo'){
             getMethod.articleInfoFun(params.articleId).then(res2=>{
-                let data = {
-                    code: "0",
-                    message: "操作成功！",
-                    data:res2
-                };
+                data.data = res2;
                 resolve(data);
             }).catch(err=>{
                 reject(err);
             })
         }else if(pathName == '/articleList'){
             getMethod.articleListFun().then(res2=>{
-                let data = {
-                    code: "0",
-                    message: "操作成功！",
-                    data:res2
-                };
+                data.data = res2;
+                resolve(data);
+            }).catch(err=>{
+                reject(err);
+            })
+        }else if(pathName == '/delArticle'){
+            console.log(params)
+            getMethod.delArticleFun(params.id).then(res2=>{
+                data.data = res2;
                 resolve(data);
             }).catch(err=>{
                 reject(err);

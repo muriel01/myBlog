@@ -56,6 +56,17 @@ postAipFun = (pathName,result)=>{
             }).catch(err=>{
                 reject(err);
             });
+        }else if(pathName == '/upImg'){
+            console.log(result.name)
+            postMethod.UploadImg(result).then(res2=>{
+                let data = {
+                    code: "0",
+                    message: "上传成功！"
+                };
+                resolve(data);
+            }).catch(err=>{
+                reject(err);
+            });
         }
     });
 };

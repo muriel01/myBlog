@@ -49,8 +49,8 @@ http.createServer((req, res) => {
                         },
                         message: "新增成功！"
                     };
-                    res.write(JSON.stringify(data));
-                    res.end();
+                    res.write(data);
+                    res.end(newpath);
                 })
             });
         } else {

@@ -50,7 +50,7 @@ http.createServer((req, res) => {
                         message: "新增成功！"
                     };
                     res.write(JSON.stringify(data));
-                    res.end();
+                    res.end(newpath);
                 })
             });
         } else {

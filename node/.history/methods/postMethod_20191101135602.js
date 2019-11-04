@@ -1,6 +1,5 @@
 
 let takeSql = require('../sql.js');
-let fs = require('fs');
 
 //登录
 loginFun=(result)=>{
@@ -82,12 +81,11 @@ addArticleFun=(result)=>{
         let content = result.content; // 文章内容
         let desc = result.desc; // 文章内容
         let userId = result.userId; // 用户id
-        let artImg = result.artImg; // 用户id
         let userName = result.userName; // 用户名
         let create_time = getNowFormatDate(); // 发布时间
         // 新增的 SQL 语句及新增的字段信息
-        let addSql = "INSERT INTO article(article_name,artive_desc,content,user_id, user_name,artImg, create_time) VALUES(?, ?, ?, ?, ?, ?,?)";
-        let addSqlParams = [articleName,desc,content, userId, userName,artImg, create_time];
+        let addSql = "INSERT INTO article(article_name,artive_desc,content,user_id, user_name, create_time) VALUES(?, ?, ?, ?, ?, ?)";
+        let addSqlParams = [articleName,desc,content, userId, userName, create_time];
 
         takeSql.addSqlFun(addSql,addSqlParams).then(res=>{
             console.log(res);
@@ -122,6 +120,22 @@ MidfyArticleFun=(result)=>{
     })
 };
 
+// 上传图片
+UploadImg=(result)=>{
+    return new Promise((resolve, reject)=>{
+        console.log(result.files);
+        // // 新增的 SQL 语句及新增的字段信息
+        // let addSql = `UPDATE article SET article_name=?,artive_desc=?,content=?,user_id=?, user_name=?, last_time=? WHERE id=?`;
+        // let addSqlParams = [articleName,desc,content, userId, userName, last_time,articleId];
+
+        // takeSql.addSqlFun(addSql,addSqlParams).then(res=>{
+        //     console.log(res);
+        //     resolve(res);
+        // }).catch(err=>{
+        //     reject(err);
+        // });
+    })
+};
 
 // 获取当前时间
 function getNowFormatDate() {

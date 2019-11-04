@@ -42,15 +42,8 @@ http.createServer((req, res) => {
                 var newpath = path.join(path.dirname(oldpath), files.uploadImg.name);
                 fs.rename(oldpath, newpath, (err) => {
                     if (err) throw err;
-                    let data = {
-                        code: "0",
-                        data:{
-                            url:newpath
-                        },
-                        message: "新增成功！"
-                    };
-                    res.write(JSON.stringify(data));
-                    res.end();
+                    res.writeHead(200, { "Content-Type": "text/html;charset=UTF8" });
+                    res.end(newpath);
                 })
             });
         } else {

@@ -82,12 +82,11 @@ addArticleFun=(result)=>{
         let content = result.content; // 文章内容
         let desc = result.desc; // 文章内容
         let userId = result.userId; // 用户id
-        let artImg = result.artImg; // 用户id
         let userName = result.userName; // 用户名
         let create_time = getNowFormatDate(); // 发布时间
         // 新增的 SQL 语句及新增的字段信息
-        let addSql = "INSERT INTO article(article_name,artive_desc,content,user_id, user_name,artImg, create_time) VALUES(?, ?, ?, ?, ?, ?,?)";
-        let addSqlParams = [articleName,desc,content, userId, userName,artImg, create_time];
+        let addSql = "INSERT INTO article(article_name,artive_desc,content,user_id, user_name, create_time) VALUES(?, ?, ?, ?, ?, ?)";
+        let addSqlParams = [articleName,desc,content, userId, userName, create_time];
 
         takeSql.addSqlFun(addSql,addSqlParams).then(res=>{
             console.log(res);
